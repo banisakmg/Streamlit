@@ -49,3 +49,14 @@ st.line_chart(stock_data)
 
 st.subheader("Stock Returns")
 st.line_chart(returns_data)
+
+def calculate_sharpe_ratio(returns, risk_free_rate=0.02):
+    portfolio_return = returns.mean().mean()
+    portfolio_volatility = returns.std().mean()
+    return (portfolio_return - risk_free_rate) / portfolio_volatility
+
+def calculate_sortino_ratio(returns, risk_free_rate=0.02):
+    portfolio_return = returns.mean().mean()
+    downside_returns = returns[returns < 0]
+    downside_deviation = downside_returns.std().mean()
+    return (portfolio_return - risk_free_rate) / downside_deviation
